@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Словарь Трейдера — 15 терминов до первой сделки</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:#050508;
+  --bg2:#0a0a10;
+  --surface:rgba(255,255,255,0.03);
+  --surface-hover:rgba(255,255,255,0.06);
+  --border:rgba(255,255,255,0.06);
+  --border-hover:rgba(255,255,255,0.12);
+  --text:#e4e4ec;
+  --text-dim:rgba(255,255,255,0.45);
+  --text-muted:rgba(255,255,255,0.25);
+  --cyan:#00e5ff;
+  --cyan-dim:rgba(0,229,255,0.15);
+  --cyan-glow:rgba(0,229,255,0.4);
+  --green:#00e676;
+  --green-dim:rgba(0,230,118,0.12);
+  --red:#ff3d57;
+  --red-dim:rgba(255,61,87,0.12);
+  --gold:#ffd740;
+  --gold-dim:rgba(255,215,64,0.12);
+  --purple:#b388ff;
+  --purple-dim:rgba(179,136,255,0.12);
+  --orange:#ff9100;
+  --orange-dim:rgba(255,145,0,0.12);
+}
+
+html{
+  scroll-behavior:smooth;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,255,255,0.08) transparent;
+}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'Outfit',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.6;overflow-x:hidden;
+}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:3px}
+
+/* ===== NOISE OVERLAY ===== */
+body::before{
+  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
+  opacity:0.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ===== AMBIENT BACKGROUND ORBS ===== */
+.orb{
+  position:fixed;border-radius:50%;filter:blur(100px);
+  pointer-events:none;z-index:0;
+}
+.orb-1{
+  width:600px;height:600px;top:-200px;right:-200px;
+  background:radial-gradient(circle,rgba(0,229,255,0.06),transparent 70%);
+  animation:orbFloat 20s ease-in-out infinite;
+}
+.orb-2{
+  width:500px;height:500px;bottom:20%;left:-200px;
+  background:radial-gradient(circle,rgba(179,136,255,0.05),transparent 70%);
+  animation:orbFloat 25s ease-in-out infinite reverse;
+}
+.orb-3{
+  width:400px;height:400px;bottom:-100px;right:10%;
+  background:radial-gradient(circle,rgba(0,230,118,0.04),transparent 70%);
+  animation:orbFloat 18s ease-in-out infinite 5s;
+}
+@keyframes orbFloat{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(30px,-20px) scale(1.05)}
+  66%{transform:translate(-20px,30px) scale(0.95)}
+}
+
+/* ===== CONTAINER ===== */
+.container{
+  max-width:780px;margin:0 auto;padding:0 24px;
+  position:relative;z-index:1;
+}
+
+/* ===== HERO ===== */
+.hero{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;
+  text-align:center;padding:60px 24px;
+  position:relative;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 20px;border-radius:100px;
+  background:var(--cyan-dim);
+  border:1px solid rgba(0,229,255,0.2);
+  color:var(--cyan);font-size:13px;font-weight:600;
+  letter-spacing:0.05em;
+  margin-bottom:32px;
+  opacity:0;animation:fadeUp 0.8s ease forwards 0.2s;
+}
+.hero h1{
+  font-size:clamp(40px,7vw,72px);font-weight:900;
+  line-height:1.05;letter-spacing:-0.04em;
+  margin-bottom:20px;
+  opacity:0;animation:fadeUp 0.8s ease forwards 0.4s;
+}
+.hero h1 span{
+  background:linear-gradient(135deg,var(--cyan),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-sub{
+  font-size:clamp(16px,2vw,20px);color:var(--text-dim);
+  max-width:480px;line-height:1.5;
+  margin-bottom:40px;
+  opacity:0;animation:fadeUp 0.8s ease forwards 0.6s;
+}
+.hero-count{
+  display:flex;align-items:center;gap:24px;
+  opacity:0;animation:fadeUp 0.8s ease forwards 0.8s;
+}
+.hero-count-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:48px;font-weight:700;
+  color:var(--cyan);line-height:1;
+}
+.hero-count-label{
+  font-size:14px;color:var(--text-dim);text-align:left;
+  line-height:1.4;
+}
+.hero-scroll{
+  position:absolute;bottom:40px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  opacity:0;animation:fadeUp 0.8s ease forwards 1s;
+}
+.hero-scroll span{font-size:11px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase}
+.scroll-line{
+  width:1px;height:40px;
+  background:linear-gradient(to bottom,var(--cyan),transparent);
+  animation:scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse{
+  0%,100%{opacity:0.3;transform:scaleY(0.6)}
+  50%{opacity:1;transform:scaleY(1)}
+}
+
+/* ===== SECTION HEADER ===== */
+.section-header{
+  padding:80px 0 48px;text-align:center;
+}
+.section-header h2{
+  font-size:clamp(24px,3.5vw,36px);font-weight:700;
+  letter-spacing:-0.02em;
+}
+.section-divider{
+  width:60px;height:3px;border-radius:2px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  margin:16px auto 0;
+}
+
+/* ===== TERM CARDS ===== */
+.terms-grid{
+  display:flex;flex-direction:column;gap:20px;
+  padding-bottom:40px;
+}
+
+.term-card{
+  position:relative;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:0;
+  overflow:hidden;
+  cursor:pointer;
+  transition:all 0.4s cubic-bezier(0.23,1,0.32,1);
+  /* scroll animation */
+  opacity:0;transform:translateY(40px);
+}
+.term-card.visible{
+  opacity:1;transform:translateY(0);
+}
+.term-card:hover{
+  border-color:var(--border-hover);
+  background:var(--surface-hover);
+  transform:translateY(-2px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+}
+
+/* Card inner glow on hover */
+.term-card::before{
+  content:'';position:absolute;inset:0;
+  border-radius:20px;opacity:0;
+  transition:opacity 0.4s ease;
+  pointer-events:none;
+}
+.term-card:hover::before{opacity:1}
+
+/* Color variants */
+.term-card[data-color="cyan"]::before{background:radial-gradient(ellipse at top left,rgba(0,229,255,0.04),transparent 60%)}
+.term-card[data-color="green"]::before{background:radial-gradient(ellipse at top left,rgba(0,230,118,0.04),transparent 60%)}
+.term-card[data-color="red"]::before{background:radial-gradient(ellipse at top left,rgba(255,61,87,0.04),transparent 60%)}
+.term-card[data-color="gold"]::before{background:radial-gradient(ellipse at top left,rgba(255,215,64,0.04),transparent 60%)}
+.term-card[data-color="purple"]::before{background:radial-gradient(ellipse at top left,rgba(179,136,255,0.04),transparent 60%)}
+.term-card[data-color="orange"]::before{background:radial-gradient(ellipse at top left,rgba(255,145,0,0.04),transparent 60%)}
+
+.term-header{
+  display:flex;align-items:center;gap:16px;
+  padding:24px 28px;
+  position:relative;z-index:1;
+}
+.term-number{
+  font-family:'JetBrains Mono',monospace;
+  font-size:13px;font-weight:600;
+  width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:10px;flex-shrink:0;
+  transition:all 0.3s ease;
+}
+.term-card[data-color="cyan"] .term-number{background:var(--cyan-dim);color:var(--cyan)}
+.term-card[data-color="green"] .term-number{background:var(--green-dim);color:var(--green)}
+.term-card[data-color="red"] .term-number{background:var(--red-dim);color:var(--red)}
+.term-card[data-color="gold"] .term-number{background:var(--gold-dim);color:var(--gold)}
+.term-card[data-color="purple"] .term-number{background:var(--purple-dim);color:var(--purple)}
+.term-card[data-color="orange"] .term-number{background:var(--orange-dim);color:var(--orange)}
+
+.term-title-group{flex:1}
+.term-name{
+  font-size:clamp(17px,2.2vw,21px);font-weight:700;
+  letter-spacing:-0.01em;line-height:1.2;
+}
+.term-name-en{
+  font-size:13px;color:var(--text-muted);font-weight:400;
+  margin-top:2px;
+}
+
+.term-toggle{
+  width:32px;height:32px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:8px;background:rgba(255,255,255,0.04);
+  flex-shrink:0;transition:all 0.3s ease;
+}
+.term-toggle svg{
+  width:16px;height:16px;stroke:var(--text-dim);
+  transition:transform 0.4s cubic-bezier(0.23,1,0.32,1);
+}
+.term-card.open .term-toggle svg{transform:rotate(180deg)}
+.term-card:hover .term-toggle{background:rgba(255,255,255,0.08)}
+
+.term-body{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.5s cubic-bezier(0.23,1,0.32,1),
+             padding 0.3s ease;
+}
+.term-card.open .term-body{max-height:400px}
+
+.term-content{
+  padding:0 28px 24px;
+  position:relative;z-index:1;
+}
+.term-content p{
+  font-size:15px;line-height:1.7;color:var(--text-dim);
+}
+.term-content strong{color:var(--text);font-weight:600}
+.term-content .highlight{
+  display:inline;padding:2px 0;
+  border-bottom:1px dashed;
+}
+
+.term-card[data-color="cyan"] .highlight{color:var(--cyan);border-color:rgba(0,229,255,0.3)}
+.term-card[data-color="green"] .highlight{color:var(--green);border-color:rgba(0,230,118,0.3)}
+.term-card[data-color="red"] .highlight{color:var(--red);border-color:rgba(255,61,87,0.3)}
+.term-card[data-color="gold"] .highlight{color:var(--gold);border-color:rgba(255,215,64,0.3)}
+.term-card[data-color="purple"] .highlight{color:var(--purple);border-color:rgba(179,136,255,0.3)}
+.term-card[data-color="orange"] .highlight{color:var(--orange);border-color:rgba(255,145,0,0.3)}
+
+/* Example badges inside cards */
+.term-examples{
+  display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;
+}
+.term-ex{
+  padding:5px 12px;border-radius:8px;
+  font-size:12px;font-weight:600;
+  font-family:'JetBrains Mono',monospace;
+}
+.term-card[data-color="cyan"] .term-ex{background:var(--cyan-dim);color:var(--cyan)}
+.term-card[data-color="green"] .term-ex{background:var(--green-dim);color:var(--green)}
+.term-card[data-color="red"] .term-ex{background:var(--red-dim);color:var(--red)}
+.term-card[data-color="gold"] .term-ex{background:var(--gold-dim);color:var(--gold)}
+.term-card[data-color="purple"] .term-ex{background:var(--purple-dim);color:var(--purple)}
+.term-card[data-color="orange"] .term-ex{background:var(--orange-dim);color:var(--orange)}
+
+/* Visual diagrams inside specific cards */
+.visual-row{
+  display:flex;gap:12px;margin-top:16px;align-items:center;
+  flex-wrap:wrap;
+}
+.visual-box{
+  flex:1;min-width:120px;padding:14px 16px;
+  border-radius:12px;text-align:center;
+  font-size:13px;font-weight:500;line-height:1.4;
+}
+.visual-arrow{
+  font-size:20px;color:var(--text-muted);flex-shrink:0;
+}
+
+/* ===== CANDLE DIAGRAM ===== */
+.candle-diagram{
+  display:flex;gap:24px;justify-content:center;
+  margin-top:16px;
+}
+.candle-visual{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+}
+.candle-stick{width:2px;height:20px;border-radius:1px}
+.candle-body-el{width:28px;height:40px;border-radius:4px}
+.candle-label{font-size:11px;font-weight:600;margin-top:4px}
+
+/* ===== RISK METER ===== */
+.risk-meter{
+  display:flex;gap:3px;margin-top:12px;
+  height:8px;border-radius:4px;overflow:hidden;
+  background:rgba(255,255,255,0.04);
+}
+.risk-seg{height:100%;flex:1;border-radius:2px;transition:opacity 0.3s}
+
+/* ===== CATEGORY LABELS ===== */
+.category-label{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:10px 20px;border-radius:12px;
+  font-size:14px;font-weight:600;
+  margin-bottom:8px;
+}
+
+/* ===== CTA SECTION ===== */
+.cta-section{
+  padding:80px 0 100px;text-align:center;
+  position:relative;
+}
+.cta-glow{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,229,255,0.08),transparent 70%);
+  filter:blur(60px);pointer-events:none;
+}
+.cta-card{
+  position:relative;z-index:1;
+  max-width:580px;margin:0 auto;
+  padding:48px 40px;border-radius:24px;
+  background:rgba(0,229,255,0.03);
+  border:1px solid rgba(0,229,255,0.12);
+  backdrop-filter:blur(20px);
+}
+.cta-card h2{
+  font-size:clamp(22px,3vw,30px);font-weight:700;
+  line-height:1.2;margin-bottom:16px;
+}
+.cta-card p{
+  font-size:15px;color:var(--text-dim);line-height:1.6;
+  margin-bottom:28px;
+}
+.cta-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 36px;border-radius:14px;
+  background:linear-gradient(135deg,var(--cyan),#00b8d4);
+  color:var(--bg);font-weight:700;font-size:16px;
+  border:none;cursor:pointer;text-decoration:none;
+  box-shadow:0 0 40px rgba(0,229,255,0.25);
+  transition:all 0.3s ease;
+}
+.cta-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 60px rgba(0,229,255,0.35);
+}
+
+/* ===== PROGRESS BAR (top) ===== */
+.progress-bar{
+  position:fixed;top:0;left:0;right:0;height:3px;z-index:100;
+  background:transparent;
+}
+.progress-fill{
+  height:100%;width:0;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  transition:width 0.15s linear;
+  box-shadow:0 0 12px var(--cyan-glow);
+}
+
+/* ===== FLOATING TOC ===== */
+.toc-btn{
+  position:fixed;bottom:24px;right:24px;z-index:100;
+  width:48px;height:48px;border-radius:14px;
+  background:rgba(10,10,16,0.85);
+  border:1px solid var(--border);
+  backdrop-filter:blur(16px);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all 0.3s ease;
+}
+.toc-btn:hover{
+  border-color:var(--cyan);
+  box-shadow:0 0 20px rgba(0,229,255,0.15);
+}
+.toc-btn svg{width:20px;height:20px;stroke:var(--text-dim)}
+
+.toc-panel{
+  position:fixed;bottom:80px;right:24px;z-index:100;
+  width:260px;max-height:60vh;overflow-y:auto;
+  background:rgba(10,10,16,0.92);
+  border:1px solid var(--border);
+  border-radius:16px;
+  backdrop-filter:blur(20px);
+  padding:16px;
+  opacity:0;transform:translateY(10px) scale(0.96);
+  pointer-events:none;
+  transition:all 0.3s cubic-bezier(0.23,1,0.32,1);
+}
+.toc-panel.open{
+  opacity:1;transform:translateY(0) scale(1);
+  pointer-events:auto;
+}
+.toc-panel a{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 12px;border-radius:8px;
+  font-size:13px;color:var(--text-dim);
+  text-decoration:none;font-weight:500;
+  transition:all 0.2s ease;
+}
+.toc-panel a:hover{
+  background:rgba(255,255,255,0.04);
+  color:var(--text);
+}
+.toc-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:600;color:var(--text-muted);
+  width:24px;text-align:center;flex-shrink:0;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:640px){
+  .term-header{padding:20px 20px}
+  .term-content{padding:0 20px 20px}
+  .cta-card{padding:36px 24px}
+  .visual-row{flex-direction:column;gap:8px}
+  .visual-arrow{transform:rotate(90deg)}
+  .candle-diagram{gap:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- Ambient orbs -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- Progress bar -->
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-badge">📖 СЛОВАРЬ ТРЕЙДЕРА</div>
+  <h1><span>15 терминов</span><br>до первой сделки</h1>
+  <p class="hero-sub">Сохрани. Перечитай перед интенсивом. Будет проще.</p>
+  <div class="hero-count">
+    <div>
+      <div class="hero-count-num">15</div>
+    </div>
+    <div class="hero-count-label">
+      ключевых<br>терминов
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Листай</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ===== TERMS ===== -->
+<div class="container">
+
+  <!-- CATEGORY: ОСНОВЫ -->
+  <div class="section-header">
+    <div class="category-label" style="background:var(--cyan-dim);color:var(--cyan)">🏛️ Основы рынка</div>
+    <h2>Где и чем торгуют</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="terms-grid">
+
+    <!-- 1. Биржа -->
+    <div class="term-card" data-color="cyan" id="term-1">
+      <div class="term-header" onclick="toggleCard(this.parentElement)">
+        <div class="term-number">01</div>
+        <div class="term-title-group">
+          <div class="term-name">Биржа</div>
+          <div class="term-name-en">Exchange</div>
+        </div>
+        <div class="term-toggle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Платформа, где покупают и продают крипту. Как <strong>маркетплейс</strong>, только вместо товаров — криптовалюты.</p>
+          <div class="term-examples">
+            <span class="term-ex">Bybit</span>
+            <span class="term-ex">Binance</span>
+            <span class="term-ex">OKX</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Биткоин -->
+    <div class="term-card" data-color="gold" id="term-2">
+      <div class="term-header" onclick="toggleCard(this.parentElement)">
+        <div class="term-number">02</div>
+        <div class="term-title-group">
+          <div class="term-name">Биткоин (BTC)</div>
+          <div class="term-name-en">Bitcoin</div>
+        </div>
+        <div class="term-toggle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Первая и самая известная криптовалюта. Создана в <strong>2009 году</strong>. Считается <span class="highlight">«цифровым золотом»</span> — на него ориентируется весь рынок.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Альткоины -->
+    <div class="term-card" data-color="purple" id="term-3">
+      <div class="term-header" onclick="toggleCard(this.parentElement)">
+        <div class="term-number">03</div>
+        <div class="term-title-group">
+          <div class="term-name">Альткоины</div>
+          <div class="term-name-en">Altcoins</div>
+        </div>
+        <div class="term-toggle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Все криптовалюты <strong>кроме биткоина</strong>. Их тысячи, но торгуют обычно <span class="highlight">топ-20</span>.</p>
+          <div class="term-examples">
+            <span class="term-ex">Ethereum</span>
+            <span class="term-ex">Solana</span>
+            <span class="term-ex">XRP</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CATEGORY: ТИПЫ СДЕЛОК -->
+  <div class="section-header">
+    <div class="category-label" style="background:var(--green-dim);color:var(--green)">📊 Типы сделок</div>
+    <h2>Как зарабатывают</h2>
+    <div class="section-divider" style="background:linear-gradient(90deg,var(--green),var(--cyan))"></div>
+  </div>
+
+  <div class="terms-grid">
+
+    <!-- 4. Лонг -->
+    <div class="term-card" data-color="green" id="term-4">
+      <div class="term-header" onclick="toggleCard(this.parentElement)">
+        <div class="term-number">04</div>
+        <div class="term-title-group">
+          <div class="term-name">Лонг</div>
+          <div class="term-name-en">Long</div>
+        </div>
+        <div class="term-toggle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Сделка <strong>на рост</strong>. Покупаешь дешевле → ждёшь → продаёшь дороже. Разница — твоя прибыль.</p>
+          <div class="visual-row">
+            <div class="visual-box" style="background:var(--green-dim);color:var(--green)">
+              Купил за <strong>$100</strong>
+            </div>
+            <div class="visual-arrow">→</div>
+            <div class="visual-box" style="background:var(--green-dim);color:var(--green)">
+              📈 Цена выросла
+            </div>
+            <div class="visual-arrow">→</div>
+            <div class="visual-box" style="background:rgba(0,230,118,0.2);color:var(--green);font-weight:700">
+              Продал за <strong>$130</strong><br><span style="font-size:11px;opacity:0.7">+$30 прибыль</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Шорт -->
+    <div class="term-card" data-color="red" id="term-5">
+      <div class="term-header" onclick="toggleCard(this.parentElement)">
+        <div class="term-number">05</div>
+        <div class="term-title-group">
+          <div class="term-name">Шорт</div>
+          <div class="term-name-en">Short</div>
+        </div>
+        <div class="term-toggle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Сделка <strong>на падение</strong>. Ты зарабатываешь, когда цена <span class="highlight">ПАДАЕТ</span>. Именно этим трейдинг отличается от обычных инвестиций.</p>
+          <div class="visual-row">
+            <div class="visual-box" style="background:var(--red-dim);color:var(--red)">
+              Открыл шорт на <strong>$100</strong>
+            </div>
+            <div class="visual-arrow">→</div>
+            <div class="visual-box" style="background:var(--red-dim);color:var(--red)">
+              📉 Цена упала
+            </div>
+            <div class="visual-arrow">→</div>
+            <div class="visual-box" style="background:rgba(0,230,118,0.15);color:var(--green);font-weight:700">
+              Закрыл на <strong>$70</strong><br><span style="font-size:11px;opacity:0.7">+$30 прибыль</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CATEGORY: ЗАЩИТА -->
+  <div class="section-header">
+    <div class="category-label" style="background:var(--orange-dim);color:var(--orange)">🛡️ Защита депозита</div>
+    <h2>Как не потерять</h2>
+    <div class="section-divider" style="background:linear-gradient(90deg,var(--orange),var(--gold))"></div>
+  </div>
+
+  <div class="terms-grid">
+
+    <!-- 6. Стоп-лосс -->
+    <div class="term-card" data-color="orange" id="term-6">
+      <div class="term-header" onclick="toggleCard(this.parentElement)">
+        <div class="term-number">06</div>
+        <div class="term-title-group">
+          <div class="term-name">Стоп-лосс</div>
+          <div class="term-name-en">Stop-Loss</div>
+        </div>
+        <div class="term-toggle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Автоматический приказ бирже: <span class="highlight">«если цена пошла против меня — закрой сделку здесь»</span>. Это твоя страховка. Ставишь <strong>ДО</strong> входа в сделку.</p>
+          <p style="margin-top:12px;padding:12px 16px;border-radius:10px;background:rgba(255,145,0,0.06);border:1px solid rgba(255,145,0,0.1);font-size:14px;color:var(--orange);font-weight:600">
+            ⚡ Главное правило трейдинга — всегда ставь стоп-лосс
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Тейк-профит -->
+    <div class="term-card" data-color="green" id="term-7">
+      <div class="term-header" onclick="toggleCard(this.parentElement)">
+        <div class="term-number">07</div>
+        <div class="term-title-group">
+          <div class="term-name">Тейк-профит</div>
+          <div class="term-name-en">Take-Profit</div>
+        </div>
+        <div class="term-toggle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Противоположность стоп-лосса. Автоматический приказ: <span class="highlight">«если цена дошла до моей цели — зафиксируй прибыль»</span>.</p>
+          <p style="margin-top:8px;font-size:14px">Чтобы <strong>жадность не съела</strong> твой результат.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Депозит -->
+    <div class="term-card" data-color="gold" id="term-8">
+      <div class="term-header" onclick="toggleCard(this.parentElement)">
+        <div class="term-number">08</div>
+        <div class="term-title-group">
+          <div class="term-name">Депозит</div>
+          <div class="term-name-en">Deposit / Balance</div>
+        </div>
+        <div class="term-toggle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Сумма денег на твоём биржевом счёте. То, чем ты торгуешь. Можно начать с <span class="highlight">5 000–10 000 ₽</span>.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CATEGORY: АНАЛИЗ -->
+  <div class="section-header">
+    <div class="category-label" style="background:var(--purple-dim);color:var(--purple)">📈 Анализ графика</div>
+    <h2>Как читать рынок</h2>
+    <div class="section-divider" style="background:linear-gradient(90deg,var(--purple),var(--cyan))"></div>
+  </div>
+
+  <div class="terms-grid">
+
+    <!-- 9. Волатильность -->
+    <div class="term-card" data-color="cyan" id="term-9">
+      <div class="term-header" onclick="toggleCard(this.parentElement)">
+        <div class="term-number">09</div>
+        <div class="term-title-group">
+          <div class="term-name">Волатильность</div>
+          <div class="term-name-en">Volatility</div>
+        </div>
+        <div class="term-toggle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Насколько сильно и быстро меняется цена. <strong>Высокая волатильность</strong> = цена прыгает туда-сюда.</p>
+          <p style="margin-top:8px">В крипте она <span class="highlight">высокая</span> — и именно поэтому тут можно зарабатывать каждый день.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. Тренд -->
+    <div class="term-card" data-color="green" id="term-10">
+      <div class="term-header" onclick="toggleCard(this.parentElement)">
+        <div class="term-number">10</div>
+        <div class="term-title-group">
+          <div class="term-name">Тренд</div>
+          <div class="term-name-en">Trend</div>
+        </div>
+        <div class="term-toggle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Общее направление движения цены.</p>
+          <div class="visual-row" style="margin-top:12px">
+            <div class="visual-box" style="background:var(--green-dim);color:var(--green)">
+              📈 <strong>Восходящий</strong><br><span style="font-size:11px;opacity:0.7">Цена растёт</span>
+            </div>
+            <div class="visual-box" style="background:var(--red-dim);color:var(--red)">
+              📉 <strong>Нисходящий</strong><br><span style="font-size:11px;opacity:0.7">Цена падает</span>
+            </div>
+            <div class="visual-box" style="background:rgba(255,255,255,0.04);color:var(--text-dim)">
+              ↔️ <strong>Боковой</strong><br><span style="font-size:11px;opacity:0.7">Топчется</span>
+            </div>
+          </div>
+          <p style="margin-top:12px;font-size:14px;color:var(--green);font-weight:600">
+            ☝️ Первое правило: торгуй по тренду, не против него
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. Свеча -->
+    <div class="term-card" data-color="purple" id="term-11">
+      <div class="term-header" onclick="toggleCard(this.parentElement)">
+        <div class="term-number">11</div>
+        <div class="term-title-group">
+          <div class="term-name">Свеча</div>
+          <div class="term-name-en">Japanese Candlestick</div>
+        </div>
+        <div class="term-toggle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Способ отображения цены на графике. Каждая свеча показывает: <strong>где цена открылась, закрылась, куда доходила</strong>.</p>
+          <div class="candle-diagram">
+            <div class="candle-visual">
+              <div class="candle-stick" style="background:var(--green)"></div>
+              <div class="candle-body-el" style="background:var(--green);opacity:0.8"></div>
+              <div class="candle-stick" style="background:var(--green)"></div>
+              <div class="candle-label" style="color:var(--green)">Зелёная<br><span style="font-size:10px;opacity:0.6">цена выросла</span></div>
+            </div>
+            <div class="candle-visual">
+              <div class="candle-stick" style="background:var(--red)"></div>
+              <div class="candle-body-el" style="background:var(--red);opacity:0.8"></div>
+              <div class="candle-stick" style="background:var(--red)"></div>
+              <div class="candle-label" style="color:var(--red)">Красная<br><span style="font-size:10px;opacity:0.6">цена упала</span></div>
+            </div>
+          </div>
+          <p style="margin-top:12px;font-size:14px;color:var(--text-dim)">
+            Выглядит сложно — <span class="highlight">на деле разберёшься за 10 минут</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. Таймфрейм -->
+    <div class="term-card" data-color="cyan" id="term-12">
+      <div class="term-header" onclick="toggleCard(this.parentElement)">
+        <div class="term-number">12</div>
+        <div class="term-title-group">
+          <div class="term-name">Таймфрейм</div>
+          <div class="term-name-en">Timeframe</div>
+        </div>
+        <div class="term-toggle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Временной отрезок одной свечи на графике.</p>
+          <div class="term-examples" style="margin-top:8px">
+            <span class="term-ex">1 мин</span>
+            <span class="term-ex">1 час</span>
+            <span class="term-ex">4 часа</span>
+            <span class="term-ex">1 день</span>
+          </div>
+          <p style="margin-top:12px;font-size:14px;color:var(--cyan);font-weight:500">
+            💡 Новичкам лучше: <strong>1H и 4H</strong> — не нужно сидеть у экрана каждую секунду
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CATEGORY: ПРОДВИНУТОЕ -->
+  <div class="section-header">
+    <div class="category-label" style="background:var(--red-dim);color:var(--red)">⚠️ Управление рисками</div>
+    <h2>Без этого никуда</h2>
+    <div class="section-divider" style="background:linear-gradient(90deg,var(--red),var(--orange))"></div>
+  </div>
+
+  <div class="terms-grid">
+
+    <!-- 13. Кредитное плечо -->
+    <div class="term-card" data-color="orange" id="term-13">
+      <div class="term-header" onclick="toggleCard(this.parentElement)">
+        <div class="term-number">13</div>
+        <div class="term-title-group">
+          <div class="term-name">Кредитное плечо</div>
+          <div class="term-name-en">Leverage</div>
+        </div>
+        <div class="term-toggle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Торговля суммой <strong>больше, чем у тебя есть</strong>.</p>
+          <div class="visual-row">
+            <div class="visual-box" style="background:var(--orange-dim);color:var(--orange)">
+              У тебя <strong>$100</strong>
+            </div>
+            <div class="visual-arrow">×10</div>
+            <div class="visual-box" style="background:var(--orange-dim);color:var(--orange)">
+              Сделка на <strong>$1 000</strong>
+            </div>
+          </div>
+          <p style="margin-top:12px;font-size:14px">Прибыль умножается, <span class="highlight">но и убыток тоже</span>.</p>
+          <p style="margin-top:8px;font-size:14px;color:var(--green);font-weight:500">
+            ✅ Новичкам: без плеча или <strong>x2–x3 максимум</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14. Ликвидация -->
+    <div class="term-card" data-color="red" id="term-14">
+      <div class="term-header" onclick="toggleCard(this.parentElement)">
+        <div class="term-number">14</div>
+        <div class="term-title-group">
+          <div class="term-name">Ликвидация</div>
+          <div class="term-name-en">Liquidation</div>
+        </div>
+        <div class="term-toggle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p><strong>Принудительное закрытие</strong> сделки биржей, когда убыток достиг критической точки.</p>
+          <p style="margin-top:8px">Происходит при торговле с <span class="highlight">большим плечом без стоп-лосса</span>.</p>
+          <p style="margin-top:12px;padding:12px 16px;border-radius:10px;background:rgba(255,61,87,0.06);border:1px solid rgba(255,61,87,0.1);font-size:14px;color:var(--red);font-weight:600">
+            ⚠️ Именно поэтому стоп-лосс — твой лучший друг
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 15. Риск-менеджмент -->
+    <div class="term-card" data-color="green" id="term-15">
+      <div class="term-header" onclick="toggleCard(this.parentElement)">
+        <div class="term-number">15</div>
+        <div class="term-title-group">
+          <div class="term-name">Риск-менеджмент</div>
+          <div class="term-name-en">Risk Management</div>
+        </div>
+        <div class="term-toggle"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="term-body">
+        <div class="term-content">
+          <p>Набор правил, которые <strong>защищают твой депозит</strong>.</p>
+          <div style="margin-top:16px;padding:20px;border-radius:14px;background:rgba(0,230,118,0.04);border:1px solid rgba(0,230,118,0.1);text-align:center">
+            <div style="font-size:13px;color:var(--text-dim);margin-bottom:6px">ГЛАВНОЕ ПРАВИЛО</div>
+            <div style="font-family:'JetBrains Mono';font-size:clamp(24px,4vw,32px);font-weight:700;color:var(--green)">
+              1–2% на сделку
+            </div>
+            <div style="font-size:13px;color:var(--text-dim);margin-top:8px">
+              Депозит 10 000 ₽ → макс. убыток <strong style="color:var(--text)">100–200 ₽</strong>
+            </div>
+          </div>
+          <p style="margin-top:12px;font-size:14px;color:var(--text-dim)">
+            Звучит мало, но <span class="highlight">именно это отличает тех, кто зарабатывает, от тех, кто сливает</span>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-section">
+    <div class="cta-glow"></div>
+    <div class="cta-card">
+      <div style="font-size:36px;margin-bottom:16px">🚀</div>
+      <h2>Готов к <span style="color:var(--cyan)">практике</span>?</h2>
+      <p>На интенсиве «Первые деньги на крипте» мы разберём каждый из этих терминов на реальном рынке. Ты не просто прочитаешь — ты <strong style="color:var(--text)">увидишь, как это работает</strong>.</p>
+      <div style="padding:14px 20px;border-radius:12px;background:rgba(0,229,255,0.06);border:1px solid rgba(0,229,255,0.12);font-size:15px;font-weight:600;color:var(--cyan)">
+        Оставайся в боте — придёт уведомление о записи
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- TOC Button -->
+<div class="toc-btn" id="tocBtn" onclick="toggleToc()">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
+</div>
+
+<!-- TOC Panel -->
+<div class="toc-panel" id="tocPanel"></div>
+
+<script>
+// ===== TOGGLE CARDS =====
+function toggleCard(card){
+  const wasOpen = card.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.term-card.open').forEach(c => c.classList.remove('open'));
+  // Open clicked (if wasn't open)
+  if(!wasOpen) card.classList.add('open');
+}
+
+// ===== SCROLL REVEAL =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if(entry.isIntersecting){
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 60);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.term-card').forEach(c => observer.observe(c));
+
+// ===== PROGRESS BAR =====
+const progressFill = document.getElementById('progressFill');
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+  progressFill.style.width = pct + '%';
+}, { passive: true });
+
+// ===== TOC =====
+const tocPanel = document.getElementById('tocPanel');
+const terms = [
+  'Биржа','Биткоин','Альткоины','Лонг','Шорт',
+  'Стоп-лосс','Тейк-профит','Депозит','Волатильность',
+  'Тренд','Свеча','Таймфрейм','Кредитное плечо','Ликвидация','Риск-менеджмент'
+];
+terms.forEach((t,i) => {
+  const a = document.createElement('a');
+  a.href = '#term-' + (i+1);
+  a.innerHTML = `<span class="toc-num">${String(i+1).padStart(2,'0')}</span>${t}`;
+  a.onclick = () => { tocPanel.classList.remove('open'); };
+  tocPanel.appendChild(a);
+});
+
+function toggleToc(){
+  tocPanel.classList.toggle('open');
+}
+
+// Close TOC on outside click
+document.addEventListener('click', (e) => {
+  if(!e.target.closest('#tocPanel') && !e.target.closest('#tocBtn')){
+    tocPanel.classList.remove('open');
+  }
+});
+
+// ===== AUTO-OPEN FIRST CARD ON LOAD =====
+setTimeout(() => {
+  const first = document.querySelector('.term-card');
+  if(first && first.classList.contains('visible')) first.classList.add('open');
+}, 1200);
+</script>
+</body>
+</html>
